@@ -6,6 +6,7 @@
         android:enabled="true"
         android:id="@+id/menu_home"
         android:icon="@drawable/ic_baseline_calendar_today_24" />
+
     <item
         android:title="map"
         android:enabled="true"

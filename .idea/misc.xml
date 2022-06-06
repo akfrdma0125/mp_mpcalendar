@@ -3,7 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/nogai/AndroidStudioProjects/mp_calendar/app/src/main/res/drawable-v24/example_1_selected_bg.xml" value="0.183" />
+        <entry key="..\:/Users/nogai/AndroidStudioProjects/mp_calendar/app/src/main/res/drawable/example_5_selected_bg.xml" value="0.183" />
+        <entry key="..\:/Users/nogai/AndroidStudioProjects/mp_calendar/app/src/main/res/drawable/ic_add.xml" value="0.183" />
+        <entry key="..\:/Users/nogai/AndroidStudioProjects/mp_calendar/app/src/main/res/drawable/ic_chevron_left.xml" value="0.183" />
         <entry key="..\:/Users/nogai/AndroidStudioProjects/mp_calendar/app/src/main/res/layout/activity_main.xml" value="0.34739583333333335" />
+        <entry key="..\:/Users/nogai/AndroidStudioProjects/mp_calendar/app/src/main/res/layout/calendar_day_legend.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/nogai/AndroidStudioProjects/mp_calendar/app/src/main/res/layout/calendar_item_view.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/nogai/AndroidStudioProjects/mp_calendar/app/src/main/res/layout/example_1_calendar_day.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/nogai/AndroidStudioProjects/mp_calendar/app/src/main/res/layout/example_5_calendar_day.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/nogai/AndroidStudioProjects/mp_calendar/app/src/main/res/layout/fragment_example5.xml" value="0.33" />
         <entry key="..\:/Users/nogai/AndroidStudioProjects/mp_calendar/app/src/main/res/layout/fragment_home.xml" value="0.34739583333333335" />
         <entry key="..\:/Users/nogai/AndroidStudioProjects/mp_calendar/app/src/main/res/layout/fragment_map.xml" value="0.358695652173913" />
         <entry key="..\:/Users/nogai/AndroidStudioProjects/mp_calendar/app/src/main/res/layout/fragment_settings.xml" value="0.358695652173913" />
