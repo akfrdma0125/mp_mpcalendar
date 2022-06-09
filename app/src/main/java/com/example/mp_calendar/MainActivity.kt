@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.apply {
-            supportFragmentManager.beginTransaction().add(fl.id, HomeFragment()).commit()
+            supportFragmentManager.beginTransaction().add(fl.id, Example5Fragment()).commit()
 
             bn.setOnNavigationItemSelectedListener {
                 replaceFragment(

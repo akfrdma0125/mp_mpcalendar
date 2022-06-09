@@ -1,59 +1,80 @@
 package com.example.mp_calendar
 
+import android.R
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TimePicker
 import androidx.fragment.app.Fragment
+import com.example.mp_calendar.databinding.FragmentSettingsBinding
+import kotlinx.android.synthetic.main.fragment_settings.*
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MapFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SettingsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    lateinit var binding: FragmentSettingsBinding
+    var isAlarmOn = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+        binding = FragmentSettingsBinding.inflate(layoutInflater, container, false)
+        return binding!!.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MapFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MapFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.alarmOnWhite.visibility = View.VISIBLE
+        binding.alarmOffPink.visibility = View.VISIBLE
+        binding.alarmOnPink.visibility = View.GONE
+        binding.alarmOffWhite.visibility = View.GONE
+
+        binding.alarmOnWhite.setOnClickListener {
+            if (!isAlarmOn) {//알람이 꺼져있다면
+                binding.alarmOnPink.visibility = View.VISIBLE
+                binding.alarmOffWhite.visibility = View.VISIBLE
+                binding.alarmOnWhite.visibility = View.GONE
+                binding.alarmOffPink.visibility = View.GONE
+                //알람을 킴
+                isAlarmOn = true
+
+
+                var picked_time = Calendar.getInstance()
+                var picked_hour = picked_time.get(Calendar.HOUR)
+                var picked_minute = picked_time.get(Calendar.MINUTE)
+
+                var timeListener = object : TimePickerDialog.OnTimeSetListener {
+                    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+                        binding.alarmTimeText.text = "${hourOfDay}:${minute}"
+                    }
                 }
+                var builder = TimePickerDialog(
+                    activity, R.style.Theme_Holo_Light_Dialog_NoActionBar,
+                    timeListener, picked_hour, picked_minute, false
+                )
+                builder.show()
+
+                alarm_time_linearlayout.visibility = View.VISIBLE
+
             }
+        }
+
+        binding.alarmOffWhite.setOnClickListener {
+            if (isAlarmOn) {//알람이 켜져있다면
+                binding.alarmOnWhite.visibility = View.VISIBLE
+                binding.alarmOffPink.visibility = View.VISIBLE
+                binding.alarmOnPink.visibility = View.GONE
+                binding.alarmOffWhite.visibility = View.GONE
+                isAlarmOn = false
+                //알람끄기
+
+                alarm_time_linearlayout.visibility = View.INVISIBLE
+            }
+        }
+
     }
 }

@@ -7,6 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="lavender">#E6E6FA</color>
+    <color name="gray">#d3d3d3</color>
+    <color name="pink">#FF4081</color>
     <!--calendar: ex1-->
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
@@ -21,5 +24,7 @@
     <color name="example_5_toolbar_color">#282828</color>
     <color name="example_5_text_grey">#bdbdbd</color>
     <color name="example_5_text_grey_light">#616161</color>
+
+
 
 </resources>

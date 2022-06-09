@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/plusByDefault"
+        android:title="직접 추가"/>
+    <item
+        android:id="@+id/plusByText"
+        android:title="텍스트로 추가"/>
+    <item
+        android:id="@+id/plusByImage"
+        android:title="이미지로 추가"/>
+
+</menu>

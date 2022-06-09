@@ -1,5 +1,6 @@
 package com.example.mp_calendar
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -33,7 +34,6 @@ import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.util.*
-
 
 data class Schedule(
     val time: LocalDateTime, val description: String,
@@ -188,7 +188,8 @@ class Example5Fragment : Fragment() {
         }
 
         binding.exAddButton.setOnClickListener{
-            Toast.makeText(activity,"Day~Activity 이동",Toast.LENGTH_SHORT).show()
+            val intent= Intent(activity,DayActivity::class.java)
+            startActivity(intent)
         }
 
         binding.exFiveNextMonthImage.setOnClickListener {

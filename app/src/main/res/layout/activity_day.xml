@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/black"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".DayActivity">
+
+    <ImageButton
+        android:id="@+id/plus_ib"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="@color/pink"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_baseline_add_24"
+        app:layout_constraintBottom_toTopOf="@+id/day_rv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="ContentDescription" />
+
+    <ImageButton
+        android:id="@+id/back_ib"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+        android:backgroundTint="@color/pink"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/day_rv"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/year_month_day"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textColor="@color/white"
+        android:text="2022년 6월 8일"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="40dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/day_rv"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toBottomOf="@+id/back_ib"
+        tools:layout_editor_absoluteX="0dp">
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

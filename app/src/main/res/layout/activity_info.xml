@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical"
+    tools:context=".InfoActivity">
+
+    <TextView
+        android:id="@+id/info_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="일정내용"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_margin="50dp"
+        />
+
+    <View
+        android:background="@color/gray"
+        android:layout_width="500dp"
+        android:layout_height="3dp"/>
+
+
+
+    <TextView
+        android:id="@+id/info_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="일정시간"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_margin="50dp"
+        />
+
+
+    <View
+        android:background="@color/gray"
+        android:layout_width="500dp"
+        android:layout_height="3dp"/>
+    <TextView
+        android:id="@+id/info_place"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="일정장소"
+        android:textColor="@color/white"
+        android:layout_margin="50dp"
+        android:gravity="center"
+        />
+
+    <View
+        android:background="@color/gray"
+        android:layout_width="500dp"
+        android:layout_height="3dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:textColor="@color/white"
+                android:text="이전 일정에서 이동"/>
+            <TextView
+                android:id="@+id/moving_time_tv_before"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="이동 소요시간"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
+
+        <View
+            android:background="@color/gray"
+            android:layout_width="500dp"
+            android:layout_height="3dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:textColor="@color/white"
+                android:text="집에서 이동"/>
+            <TextView
+                android:id="@+id/moving_time_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="이동 소요시간"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:background="@color/gray"
+        android:layout_width="500dp"
+        android:layout_height="3dp"/>
+
+
+</LinearLayout>
