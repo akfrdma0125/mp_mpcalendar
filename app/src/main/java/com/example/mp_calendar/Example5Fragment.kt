@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.os.Build
 import android.system.Os.close
+import android.util.Log
 import android.util.TypedValue
 import android.widget.TextView
 import android.widget.Toast
@@ -34,10 +35,6 @@ import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.util.*
-
-data class Schedule(
-    val time: LocalDateTime, val description: String,
-    val location: String, val prevSchedule: Boolean, val travelTime: Int)
 
 @RequiresApi(Build.VERSION_CODES.O)
 class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.CalendarAdapterViewHolder>() {
@@ -96,6 +93,7 @@ class Example5Fragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentExample5Binding.bind(view)
 
+        //리사이클러뷰 초기화
         binding.exFiveRv.apply {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
             adapter = calendarAdapter
@@ -157,6 +155,7 @@ class Example5Fragment : Fragment() {
         class MonthViewContainer(view: View) : ViewContainer(view) {
             val legendLayout = Example5CalendarHeaderBinding.bind(view).legendLayout.root
         }
+
         binding.exFiveCalendar.monthHeaderBinder = object :
             MonthHeaderFooterBinder<MonthViewContainer> {
             override fun create(view: View) = MonthViewContainer(view)
@@ -189,6 +188,8 @@ class Example5Fragment : Fragment() {
 
         binding.exAddButton.setOnClickListener{
             val intent= Intent(activity,DayActivity::class.java)
+            intent.putExtra("date",selectedDate)
+            Log.d("selectedDate","$selectedDate")
             startActivity(intent)
         }
 

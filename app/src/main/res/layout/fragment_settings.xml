@@ -107,11 +107,6 @@
             android:backgroundTint="@color/black"
             android:layout_weight="1"/>
 
-
-
-
-
-
     </LinearLayout>
     <LinearLayout
         android:id="@+id/alarm_time_linearlayout"

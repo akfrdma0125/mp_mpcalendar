@@ -20,8 +20,6 @@ class MyDBHelper(val context: Context?):SQLiteOpenHelper(context,DB_NAME,null,DB
         val SNAME="sname"
         val STIME="stime"
         val SLOCATION="slocation"
-
-
     }
 
     fun getAllRecord(){
@@ -74,8 +72,5 @@ class MyDBHelper(val context: Context?):SQLiteOpenHelper(context,DB_NAME,null,DB
         db.close()
         return flag
     }
-
-
-
 
 }
