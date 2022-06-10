@@ -1,7 +1,10 @@
 package com.example.mp_calendar
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
@@ -22,10 +25,20 @@ fun generatescheduels(): List<Schedule> {
 
     return list
 }
-
+//분은 항상 두 자리여야 합니다.
 @RequiresApi(Build.VERSION_CODES.O)
 fun stringtotime(str:String):LocalTime{
     val timeFormatter=DateTimeFormatter.ofPattern("H:mm")
     val time=LocalTime.parse(str,timeFormatter)
     return time
 }
+@RequiresApi(Build.VERSION_CODES.O)
+fun mklocaldatetime(t: LocalTime, d: LocalDate):LocalDateTime{
+    val str="$d $t"
+    val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+    val value=LocalDateTime.parse(str,formatter)
+    return value
+}
+
+
+

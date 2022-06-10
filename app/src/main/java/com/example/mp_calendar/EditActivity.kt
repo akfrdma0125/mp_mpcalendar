@@ -37,7 +37,8 @@ class EditActivity : AppCompatActivity() {
 
             var timeListener=object: TimePickerDialog.OnTimeSetListener{
                 override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-                    binding.timeText.text="${hourOfDay}:${minute}"
+                    val str=String.format("%02d:%02d",hourOfDay,minute)
+                    binding.timeText.text=str
                 }
             }
             var builder= TimePickerDialog(this, R.style.Theme_Holo_Light_Dialog_NoActionBar,

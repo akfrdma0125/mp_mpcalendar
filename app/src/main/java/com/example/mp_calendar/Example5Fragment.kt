@@ -93,6 +93,9 @@ class Example5Fragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity=context as MainActivity
+
+       /* val temp=mklocaldatetime(stringtotime("7:00"), LocalDate.now())
+        Log.d("schedule fun",temp.toString())*/
     }
 
     override fun onResume() {
