@@ -10,7 +10,7 @@ data class Schedule(
     val time: LocalTime,
     val name: String,
     val location: String="",
-    val prev: Boolean = false,
-    val next: Boolean = false,
+    val prev: Int=0,
+    val next: Int=0,
     val travelTime: Int =0
     ):Serializable

@@ -7,7 +7,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TimePicker
-import com.example.day.ScheduleData
 import com.example.mp_calendar.databinding.ActivityEditBinding
 import java.util.*
 
@@ -17,10 +16,10 @@ class EditActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initLayout()
+        //initLayout()
     }
 
-    private fun initLayout() {
+    /*private fun initLayout() {
 
         binding.pickTimeBtn.setOnClickListener {
             var picked_time= Calendar.getInstance()
@@ -48,8 +47,8 @@ class EditActivity : AppCompatActivity() {
 
     private fun sendInfo(name:String,time:String,place:String) {
         val intent= Intent()
-        intent.putExtra("schedule", ScheduleData(name,time,place))
+        intent.putExtra("schedule", Schedule(name,time,place))
         setResult(Activity.RESULT_OK,intent)
         finish()
-    }
+    }*/
 }

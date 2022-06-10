@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mp_calendar.ScheduleData
 import com.example.mp_calendar.databinding.RowBinding
 
 class ScheduleAdapter(val items:ArrayList<Schedule>, val onClickDelete :(Int)->Unit): RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
@@ -23,7 +24,7 @@ class ScheduleAdapter(val items:ArrayList<Schedule>, val onClickDelete :(Int)->U
 
     override fun onBindViewHolder(holder: ScheduleAdapter.ViewHolder, position: Int) {
         holder.binding.scheduleRvTitle.text=items[position].name
-        holder.binding.scheduleRvTime.text=items[position].time
+        holder.binding.scheduleRvTime.text=items[position].time.toString()
         //item_name=items[position].name
         //item_time=items[position].time
         //item_location=items[position].location
@@ -35,10 +36,10 @@ class ScheduleAdapter(val items:ArrayList<Schedule>, val onClickDelete :(Int)->U
         return listData.size
     }
 
-    fun addItemToList(name: String, time: String, location: String) {
+    /*fun addItemToList(name: String, time: String, location: String) {
         Log.d("item배열",items.size.toString())
         listData.add(Schedule(name,time,location))
-    }
+    }*/
 
     fun listClear() {
         listData.clear()
@@ -56,7 +57,10 @@ class ScheduleAdapter(val items:ArrayList<Schedule>, val onClickDelete :(Int)->U
            binding.LinearLayoutTimeTitle.setOnClickListener {
                val intent=Intent(context,InfoActivity::class.java)
                //intent.putExtra("schedule",ScheduleData(name,time,place))
-               intent.putExtra("scheduleInfo",Schedule(items[position].name,items[position].time,items[position].location))
+               intent.putExtra("scheduleInfo",
+                   Schedule(items[position].date,items[position].time,items[position].name,
+                   items[position].location,items[position].prev,
+                   items[position].next,items[position].travelTime))
                intent.run{context.startActivity(this)}
 
            }

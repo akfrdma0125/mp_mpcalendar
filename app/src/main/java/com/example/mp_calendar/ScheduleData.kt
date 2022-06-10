@@ -1,4 +1,4 @@
-package com.example.day
+package com.example.mp_calendar
 
 import java.io.Serializable
 

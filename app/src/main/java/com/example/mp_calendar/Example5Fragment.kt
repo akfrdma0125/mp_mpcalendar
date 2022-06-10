@@ -1,5 +1,6 @@
 package com.example.mp_calendar
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -69,15 +70,33 @@ class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.CalendarAdapterView
 @RequiresApi(Build.VERSION_CODES.O)
 class Example5Fragment : Fragment() {
     lateinit var mainActivity: MainActivity
+    lateinit var myDBHelper:MyDBHelper
 
     private var selectedDate: LocalDate? = null
     private val monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM")
 
     private val calendarAdapter = CalendarAdapter()
-    //private val schedules = generateSchedules().groupBy { it.time.toLocalDate() }
-    private val schedules = generatescheduels().groupBy {it.date}
+    lateinit var schedules: Map<LocalDate,List<Schedule>>
+    //private val schedules = generateSchedules().groupBy { it.date }
+    //private val schedules = generatescheduels().groupBy {it.date}
 
     private lateinit var binding: FragmentExample5Binding
+
+    fun generateSchedules():List<Schedule>{
+        var data=arrayListOf<Schedule>()
+        myDBHelper=MyDBHelper(mainActivity)
+        val currentMonth = YearMonth.now()
+        val currentMonth17 = currentMonth.atDay(17)
+        myDBHelper.insertSchedule(Schedule(currentMonth17, stringtotime("7:00"),"todo1", "a"))
+        data= myDBHelper.getAllRecord() as ArrayList<Schedule>
+        return data
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mainActivity=context as MainActivity
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -85,6 +104,7 @@ class Example5Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding= FragmentExample5Binding.inflate(layoutInflater,container,false)
+        schedules=generateSchedules().groupBy { it.date }
         return binding.root
     }
 

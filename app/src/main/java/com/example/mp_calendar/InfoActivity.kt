@@ -2,7 +2,6 @@ package com.example.mp_calendar
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.day.ScheduleData
 import com.example.mp_calendar.databinding.ActivityInfoBinding
 
 class InfoActivity : AppCompatActivity() {
@@ -13,12 +12,11 @@ class InfoActivity : AppCompatActivity() {
         binding= ActivityInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val scheduleInfo=intent.getSerializableExtra("scheduleInfo") as ScheduleData
+        val scheduleInfo=intent.getSerializableExtra("scheduleInfo") as Schedule
 
         binding.infoTitle.text=scheduleInfo.name
-        binding.infoTime.text=scheduleInfo.time
+        binding.infoTime.text=scheduleInfo.time.toString()
         binding.infoPlace.text=scheduleInfo.location
-
 
     }
 }

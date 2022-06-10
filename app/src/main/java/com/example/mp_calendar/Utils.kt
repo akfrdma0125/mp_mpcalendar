@@ -13,12 +13,12 @@ fun generatescheduels(): List<Schedule> {
     val currentMonth = YearMonth.now()
 
     val currentMonth17 = currentMonth.atDay(17)
-    list.add(Schedule(currentMonth17, stringtotime("7:00"),"todo1", "a",false,false, 50))
-    list.add(Schedule(currentMonth17, stringtotime("12:30"), "todo2","b", true, true,60))
+    list.add(Schedule(currentMonth17, stringtotime("7:00"),"todo1", "a"))
+    list.add(Schedule(currentMonth17, stringtotime("12:30"), "todo2","b"))
 
     val currentMonth22 = currentMonth.atDay(22)
-    list.add(Schedule(currentMonth22, stringtotime("7:18"),"todo1", "a",false, false,50))
-    list.add(Schedule(currentMonth22, stringtotime("18:22"), "todo2","b", true, true, 60))
+    list.add(Schedule(currentMonth22, stringtotime("7:18"),"todo1", "a"))
+    list.add(Schedule(currentMonth22, stringtotime("18:22"), "todo2","b"))
 
     return list
 }
