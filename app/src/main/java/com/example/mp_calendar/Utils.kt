@@ -6,7 +6,7 @@ import java.time.YearMonth
 
 //테스트용입니다.
 @RequiresApi(Build.VERSION_CODES.O)
-fun generateScheduels(): List<Schedule> {
+fun generatescheduels(): List<Schedule> {
     val list = mutableListOf<Schedule>()
     val currentMonth = YearMonth.now()
 

@@ -7,13 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.os.Build
-import android.system.Os.close
 import android.util.Log
 import android.util.TypedValue
 import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -28,7 +25,7 @@ import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import com.kizitonwose.calendarview.utils.next
 import com.kizitonwose.calendarview.utils.previous
-import java.nio.file.Files.delete
+import kotlinx.coroutines.*
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.YearMonth
@@ -71,12 +68,29 @@ class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.CalendarAdapterView
 
 @RequiresApi(Build.VERSION_CODES.O)
 class Example5Fragment : Fragment() {
+    private lateinit var db:RoomDatabase
+    lateinit var mainActivity: MainActivity
 
     private var selectedDate: LocalDate? = null
     private val monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM")
 
     private val calendarAdapter = CalendarAdapter()
-    private val schedules = generateScheduels().groupBy { it.time.toLocalDate() }
+    private val schedules = generateSchedules().groupBy { it.time.toLocalDate() }
+    //private val schedules = generateScheduels().groupBy { it.time.toLocalDate() }
+
+    fun generateSchedules(): List<Schedule>{
+        var list = mutableListOf<Schedule>()
+        val currentMonth = YearMonth.now()
+        val currentMonth17 = currentMonth.atDay(17)
+        val addsch=Schedule(currentMonth17,currentMonth17.atTime(14, 0),"todo1", "a",false,false, 50)
+        CoroutineScope(Dispatchers.Main).launch {
+            withContext(Dispatchers.IO){
+                db.dao().insert(addsch)
+                list= db.dao().getAll() as MutableList<Schedule>
+            }
+        }
+        return list
+    }
 
     private lateinit var binding: FragmentExample5Binding
 
@@ -86,6 +100,9 @@ class Example5Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding= FragmentExample5Binding.inflate(layoutInflater,container,false)
+        mainActivity=context as MainActivity
+        db=RoomDatabase.getDatabase(mainActivity) as RoomDatabase
+
         return binding.root
     }
 
