@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.graphics.Color
 import android.os.Build
+import android.util.Log
 import android.view.Gravity
 import android.widget.TableRow
 import android.widget.TextView
@@ -73,9 +74,9 @@ class MyDBHelper(val context: Context?):SQLiteOpenHelper(context,DB_NAME,null,DB
                 "$SID integer primary key autoincrement, "+
                 "$SDATE text," +
                 "$STIME text," +
-                "$SNAME text, "+
-                "$SLOCATION text, "+
-                "$SPREV integer, "+
+                "$SNAME text,"+
+                "$SLOCATION text,"+
+                "$SPREV integer,"+
                 "$SNEXT integer, "+
                 "$STRAVEL integer);"
         db!!.execSQL(create_table)
@@ -96,6 +97,7 @@ class MyDBHelper(val context: Context?):SQLiteOpenHelper(context,DB_NAME,null,DB
         values.put(SNAME,schedule.name)
         values.put(SLOCATION,schedule.location)
         values.put(STRAVEL,schedule.travelTime)
+        Log.d("serr",values.toString())
         val db =writableDatabase
         val flag=db.insert(TABLE_NAME,null,values)>0
         db.close()

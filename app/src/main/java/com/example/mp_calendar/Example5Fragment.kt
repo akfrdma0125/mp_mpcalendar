@@ -32,6 +32,7 @@ import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.util.*
+import kotlin.collections.ArrayList
 
 @RequiresApi(Build.VERSION_CODES.O)
 class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.CalendarAdapterViewHolder>() {
@@ -85,9 +86,6 @@ class Example5Fragment : Fragment() {
     fun generateSchedules():List<Schedule>{
         var data=arrayListOf<Schedule>()
         myDBHelper=MyDBHelper(mainActivity)
-        val currentMonth = YearMonth.now()
-        val currentMonth17 = currentMonth.atDay(17)
-        myDBHelper.insertSchedule(Schedule(currentMonth17, stringtotime("7:00"),"todo1", "a"))
         data= myDBHelper.getAllRecord() as ArrayList<Schedule>
         return data
     }
@@ -95,6 +93,13 @@ class Example5Fragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity=context as MainActivity
+    }
+
+    override fun onResume() {
+        super.onResume()
+        calendarAdapter.schedules.clear()
+        schedules=generateSchedules().groupBy { it.date }
+        calendarAdapter.notifyDataSetChanged()
     }
 
 
@@ -112,6 +117,7 @@ class Example5Fragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentExample5Binding.bind(view)
 
+        Log.d("schedule map",schedules.toString())
         //리사이클러뷰 초기화
         binding.exFiveRv.apply {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
@@ -209,8 +215,9 @@ class Example5Fragment : Fragment() {
 
         binding.exAddButton.setOnClickListener{
             val intent= Intent(activity,DayActivity::class.java)
+            if(selectedDate==null) selectedDate=LocalDate.now()
             intent.putExtra("date",selectedDate)
-            Log.d("selectedDate","$selectedDate")
+            Log.d("schedule intent","$selectedDate")
             startActivity(intent)
         }
 
@@ -235,11 +242,6 @@ class Example5Fragment : Fragment() {
     override fun onStop() {
         super.onStop()
         requireActivity().window.statusBarColor = requireContext().getColorCompat(R.color.colorPrimaryDark)
-    }
-
-    private fun deleteEvent(event: Schedule) {
-        calendarAdapter.schedules.remove(event)
-        updateAdapterForDate(null)
     }
 
     private fun updateAdapterForDate(date: LocalDate?) {

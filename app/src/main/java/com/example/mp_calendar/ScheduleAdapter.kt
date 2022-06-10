@@ -19,6 +19,7 @@ class ScheduleAdapter(val items:ArrayList<Schedule>, val onClickDelete :(Int)->U
     //var item_location=""
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleAdapter.ViewHolder {
         val binding= RowBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        Log.d("schedule size",items.size.toString())
         return ViewHolder(binding)
     }
 
@@ -56,13 +57,11 @@ class ScheduleAdapter(val items:ArrayList<Schedule>, val onClickDelete :(Int)->U
         init{
            binding.LinearLayoutTimeTitle.setOnClickListener {
                val intent=Intent(context,InfoActivity::class.java)
-               //intent.putExtra("schedule",ScheduleData(name,time,place))
                intent.putExtra("scheduleInfo",
                    Schedule(items[position].date,items[position].time,items[position].name,
                    items[position].location,items[position].prev,
                    items[position].next,items[position].travelTime))
                intent.run{context.startActivity(this)}
-
            }
        }
         fun bind(index:Int){

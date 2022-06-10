@@ -15,6 +15,7 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mp_calendar.Schedule
 import com.example.mp_calendar.databinding.ActivityDayBinding
+import kotlinx.android.synthetic.main.activity_day.view.*
 import java.time.LocalDate
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -35,7 +36,7 @@ class DayActivity : AppCompatActivity() , PopupMenu.OnMenuItemClickListener{
             Log.d("push",schedule.name.toString())
             data.add(schedule)
             InsertInDatabase(schedule)
-            //displayList()//데이터베이스
+            displayList()//데이터베이스
 
             binding.dayRv.adapter!!.notifyDataSetChanged()
         }
@@ -46,21 +47,10 @@ class DayActivity : AppCompatActivity() , PopupMenu.OnMenuItemClickListener{
         myDBHelper.insertSchedule(schedule)
     }
 
-    /*private fun displayList() {
-
-        val db=myDBHelper.readableDatabase
-
-        val cursor=db.rawQuery("select * from ${MyDBHelper.TABLE_NAME};",null)
-        adapter.listClear()
-        while(cursor.moveToNext()){
-            adapter.addItemToList(cursor.getString(1),cursor.getString(2),cursor.getString(3))
-        }
-
-        cursor.close()
-        db.close()
-
-
-    }*/
+    private fun displayList() {
+        myDBHelper=MyDBHelper(this)
+        data= myDBHelper.getdateRecord(today) as ArrayList<Schedule>
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,13 +58,14 @@ class DayActivity : AppCompatActivity() , PopupMenu.OnMenuItemClickListener{
         binding = ActivityDayBinding.inflate(layoutInflater)
         setContentView(binding.root)
         today=intent.getSerializableExtra("date") as LocalDate
+        binding.yearMonthDay.text="${today.month} ${today.dayOfMonth}"
         initData()
         initRecyclerView()
         //initDisplay()
         initPopupMenu()
     }
 
-    /*private fun initDisplay() {
+   /* private fun initDisplay() {
         myDBHelper=MyDBHelper(this)
         val db=myDBHelper.readableDatabase
         val cursor=db.rawQuery("select * from ${MyDBHelper.TABLE_NAME};",null)
@@ -90,17 +81,17 @@ class DayActivity : AppCompatActivity() , PopupMenu.OnMenuItemClickListener{
     }
 
     private fun initData() {
-//        data.add(ScheduleData("데베수업","12:00","새천년관"))
-//        data.add(ScheduleData("내과진료","3:00","건국대학교병원"))
+        myDBHelper=MyDBHelper(this)
+        data= myDBHelper.getdateRecord(today) as ArrayList<Schedule>
+        Log.d("schedule",data.toString())
     }
 
     private fun initRecyclerView() {
-        myDBHelper=MyDBHelper(this)
-        data= myDBHelper.getdateRecord(today) as ArrayList<Schedule>
         binding.dayRv.layoutManager= LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
         adapter= ScheduleAdapter(data){index->deleteItem(index)}
         binding.dayRv.adapter=adapter
-        adapter.listClear()
+        //adapter.listClear()
+        Log.d("schedule adapter",data.toString())
     }
 
     private fun deleteItem(index: Int) {
@@ -152,6 +143,7 @@ class DayActivity : AppCompatActivity() , PopupMenu.OnMenuItemClickListener{
             R.id.plusByImage -> Toast.makeText(this, "plusByImage", Toast.LENGTH_LONG).show()
             R.id.plusByDefault -> {
                 val intent= Intent(this,EditActivity::class.java)
+                intent.putExtra("date",today)
                 activityResultLauncher.launch(intent)
 
             }
