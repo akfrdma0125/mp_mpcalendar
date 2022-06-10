@@ -25,7 +25,6 @@ import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import com.kizitonwose.calendarview.utils.next
 import com.kizitonwose.calendarview.utils.previous
-import kotlinx.coroutines.*
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.YearMonth
@@ -39,7 +38,7 @@ class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.CalendarAdapterView
     val schedules = mutableListOf<Schedule>()
 
     //EEE: 요일 ex. 금
-    private val formatter = DateTimeFormatter.ofPattern("EEE'\n'dd MMM'\n'HH:mm")
+    private val formatter = DateTimeFormatter.ofPattern("EEE'\n'dd MMM")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarAdapterViewHolder {
         return CalendarAdapterViewHolder(
@@ -58,39 +57,25 @@ class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.CalendarAdapterView
 
         fun bind(schedule: Schedule) {
             binding.itemDateText.apply {
-                text = formatter.format(schedule.time)
+                text = "${formatter.format(schedule.date)}\n${schedule.time}"
+
             }
 
-            binding.itemText.text=schedule.description
+            binding.itemText.text=schedule.name
         }
     }
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
 class Example5Fragment : Fragment() {
-    private lateinit var db:RoomDatabase
     lateinit var mainActivity: MainActivity
 
     private var selectedDate: LocalDate? = null
     private val monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM")
 
     private val calendarAdapter = CalendarAdapter()
-    private val schedules = generateSchedules().groupBy { it.time.toLocalDate() }
-    //private val schedules = generateScheduels().groupBy { it.time.toLocalDate() }
-
-    fun generateSchedules(): List<Schedule>{
-        var list = mutableListOf<Schedule>()
-        val currentMonth = YearMonth.now()
-        val currentMonth17 = currentMonth.atDay(17)
-        val addsch=Schedule(currentMonth17,currentMonth17.atTime(14, 0),"todo1", "a",false,false, 50)
-        CoroutineScope(Dispatchers.Main).launch {
-            withContext(Dispatchers.IO){
-                db.dao().insert(addsch)
-                list= db.dao().getAll() as MutableList<Schedule>
-            }
-        }
-        return list
-    }
+    //private val schedules = generateSchedules().groupBy { it.time.toLocalDate() }
+    private val schedules = generatescheduels().groupBy {it.date}
 
     private lateinit var binding: FragmentExample5Binding
 
@@ -100,9 +85,6 @@ class Example5Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding= FragmentExample5Binding.inflate(layoutInflater,container,false)
-        mainActivity=context as MainActivity
-        db=RoomDatabase.getDatabase(mainActivity) as RoomDatabase
-
         return binding.root
     }
 
@@ -161,6 +143,8 @@ class Example5Fragment : Fragment() {
                     val schedule = schedules[day.date]
                     if (schedule != null) {
                         scheduleView.isVisible=true
+                        Log.d("schedule","$schedule")
+                        Log.d("schedule","${day.date}")
                     }
                 } else {
                     textView.setTextColorRes(R.color.example_5_text_grey_light)

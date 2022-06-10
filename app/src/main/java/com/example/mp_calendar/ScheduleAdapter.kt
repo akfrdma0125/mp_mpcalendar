@@ -6,10 +6,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.day.ScheduleData
 import com.example.mp_calendar.databinding.RowBinding
 
-class ScheduleAdapter(val items:ArrayList<ScheduleData>, val onClickDelete :(Int)->Unit): RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
+class ScheduleAdapter(val items:ArrayList<Schedule>, val onClickDelete :(Int)->Unit): RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
     private var listData=items
     lateinit var myDBHelper: MyDBHelper
     lateinit var context:RowBinding
@@ -38,14 +37,14 @@ class ScheduleAdapter(val items:ArrayList<ScheduleData>, val onClickDelete :(Int
 
     fun addItemToList(name: String, time: String, location: String) {
         Log.d("item배열",items.size.toString())
-        listData.add(ScheduleData(name,time,location))
+        listData.add(Schedule(name,time,location))
     }
 
     fun listClear() {
         listData.clear()
     }
 
-    fun setIems(itemss: ArrayList<ScheduleData>) {
+    fun setIems(itemss: ArrayList<Schedule>) {
         listData =itemss
         notifyDataSetChanged()
     }
@@ -57,7 +56,7 @@ class ScheduleAdapter(val items:ArrayList<ScheduleData>, val onClickDelete :(Int
            binding.LinearLayoutTimeTitle.setOnClickListener {
                val intent=Intent(context,InfoActivity::class.java)
                //intent.putExtra("schedule",ScheduleData(name,time,place))
-               intent.putExtra("scheduleInfo",ScheduleData(items[position].name,items[position].time,items[position].location))
+               intent.putExtra("scheduleInfo",Schedule(items[position].name,items[position].time,items[position].location))
                intent.run{context.startActivity(this)}
 
            }

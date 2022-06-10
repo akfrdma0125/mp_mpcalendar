@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import com.example.mp_calendar.RoomDatabase.Companion.getDatabase
 import com.example.mp_calendar.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

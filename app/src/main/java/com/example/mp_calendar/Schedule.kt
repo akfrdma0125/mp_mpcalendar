@@ -1,17 +1,16 @@
 package com.example.mp_calendar
 
-import androidx.room.Entity
 import java.io.Serializable
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 
-@Entity(tableName= "schedules", primaryKeys = ["description"])
 data class Schedule(
     val date: LocalDate,
-    val time: LocalDateTime,
-    val description: String,
+    val time: LocalTime,
+    val name: String,
     val location: String="",
-    val prevSchedule: Boolean = false,
-    val nextSchedule: Boolean = false,
+    val prev: Boolean = false,
+    val next: Boolean = false,
     val travelTime: Int =0
     ):Serializable

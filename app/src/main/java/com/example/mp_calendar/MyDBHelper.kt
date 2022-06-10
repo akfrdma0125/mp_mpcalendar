@@ -9,7 +9,8 @@ import android.graphics.Color
 import android.view.Gravity
 import android.widget.TableRow
 import android.widget.TextView
-import com.example.day.ScheduleData
+import com.example.mp_calendar.Schedule
+import java.time.LocalDate
 
 class MyDBHelper(val context: Context?):SQLiteOpenHelper(context,DB_NAME,null,DB_VERSION) {
     companion object{
@@ -17,9 +18,13 @@ class MyDBHelper(val context: Context?):SQLiteOpenHelper(context,DB_NAME,null,DB
         val DB_VERSION=1
         val TABLE_NAME="schedules"
         val SID="sid"
-        val SNAME="sname"
+        val SDATE="sdate"
         val STIME="stime"
+        val SNAME="sname"
         val SLOCATION="slocation"
+        val SPREV="sprev"
+        val SNEXT="snext"
+        val STRAVEL="stravel"
     }
 
     fun getAllRecord(){
@@ -35,9 +40,13 @@ class MyDBHelper(val context: Context?):SQLiteOpenHelper(context,DB_NAME,null,DB
     override fun onCreate(db: SQLiteDatabase?) {
         val create_table="create table if not exists $TABLE_NAME("+
                 "$SID integer primary key autoincrement, "+
-                "$SNAME text, "+
+                "$SDATE text," +
                 "$STIME text," +
-                "$SLOCATION text);"
+                "$SNAME text, "+
+                "$SLOCATION text, "+
+                "$SPREV text, "+
+                "$SNEXT text, "+
+                "$STRAVEL text);"
         db!!.execSQL(create_table)
     }
 
@@ -47,11 +56,14 @@ class MyDBHelper(val context: Context?):SQLiteOpenHelper(context,DB_NAME,null,DB
         onCreate(db)
     }
 
-    fun insertSchedule(schedule: ScheduleData):Boolean{
+    fun insertSchedule(schedule: Schedule):Boolean{
         val values = ContentValues()
+        values.put(SPREV,schedule.prev)
+        values.put(SDATE,schedule.date.toString())
+        values.put(STIME,schedule.time.toString())
         values.put(SNAME,schedule.name)
-        values.put(STIME,schedule.time)
         values.put(SLOCATION,schedule.location)
+        values.put(STRAVEL,schedule.travelTime)
         val db =writableDatabase
         val flag=db.insert(TABLE_NAME,null,values)>0
         db.close()

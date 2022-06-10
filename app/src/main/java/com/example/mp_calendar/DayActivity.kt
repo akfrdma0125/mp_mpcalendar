@@ -11,13 +11,13 @@ import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.day.ScheduleData
+import com.example.mp_calendar.Schedule
 import com.example.mp_calendar.databinding.ActivityDayBinding
 
 
 class DayActivity : AppCompatActivity() , PopupMenu.OnMenuItemClickListener{
     lateinit var binding: ActivityDayBinding
-    var data=arrayListOf<ScheduleData>()
+    var data=arrayListOf<Schedule>()
     lateinit var adapter:ScheduleAdapter
     lateinit var myDBHelper:MyDBHelper
 
@@ -26,7 +26,7 @@ class DayActivity : AppCompatActivity() , PopupMenu.OnMenuItemClickListener{
         ActivityResultContracts.StartActivityForResult()
     ){
         if(it.resultCode== RESULT_OK){
-            val schedule=it.data?.getSerializableExtra("schedule") as ScheduleData
+            val schedule=it.data?.getSerializableExtra("schedule") as Schedule
             Toast.makeText(this,schedule.name+" 일정 추가됨", Toast.LENGTH_SHORT).show()
             Log.d("push",schedule.name.toString())
             data.add(schedule)
@@ -37,7 +37,7 @@ class DayActivity : AppCompatActivity() , PopupMenu.OnMenuItemClickListener{
         }
     }
 
-    private fun InsertInDatabase(schedule: ScheduleData) {
+    private fun InsertInDatabase(schedule: Schedule) {
         myDBHelper=MyDBHelper(this)
 
         myDBHelper.insertSchedule(schedule)
@@ -115,8 +115,8 @@ class DayActivity : AppCompatActivity() , PopupMenu.OnMenuItemClickListener{
 
     }
 
-    private fun DeleteInDatabase(scheduledata: ScheduleData) {
-        val result=myDBHelper.deleteProduct(scheduledata.name)
+    private fun DeleteInDatabase(schedule: Schedule) {
+        val result=myDBHelper.deleteProduct(schedule.name)
         if(result){
             Toast.makeText(this,"DELETE SUCCESS", Toast.LENGTH_SHORT).show()
         }else{
